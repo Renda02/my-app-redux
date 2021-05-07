@@ -1,14 +1,36 @@
 import React from 'react';
 import './App.css';
+import {connect} from "react-redux"
+import {increaseCounter, decreaseCounter} from "./redux/Counter/counter.actions"
+import { DECREMENT } from './redux/Counter/counter.types';
 
-function App() {
+
+
+function App(props: any) {
   return (
     <div className="App">
-   <div> Count: 0</div>
-   <button>Increment</button>
-   <button>Decrement</button>
+   <div> Count: {props.count}</div>
+   <button onClick={props.increment }>Increment</button>
+   <button onClick={props.decrement}>Decrement</button>
     </div>
   );
 }
 
-export default App;
+// how ot get data from the redux into our props
+function mapStateToProps(state: any){
+  return {
+    count: state.counter.count
+  }
+}
+
+// how ot get data from the redux into our props
+function mapDispatchToProps(dispatch:any){
+  return {
+    increment: () => (dispatch(increaseCounter())),
+    decrement: () => (dispatch({
+      type: DECREMENT,
+    }))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
