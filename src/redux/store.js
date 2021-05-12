@@ -26,6 +26,16 @@ function reducer (state = initialState, action)  {
                  ...state, 
                  count: state.count - action.payload,
               };
+              case "DIVIDE_VALUE":
+               return {
+                  ...state, 
+                  count: state.count / action.payload,
+               };
+               case "MULTIPLY_VALUE":
+                  return {
+                     ...state, 
+                     count: state.count * action.payload,
+                  };
           
          default: return state;
     }

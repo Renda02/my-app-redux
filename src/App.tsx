@@ -6,15 +6,15 @@ function App(props: any) {
   const [inputValue, setInputValue] = useState(0);
 
   return (
-    <div className="App">
-      <div className="input">
-        <input
+    <div className="App"><input
           type="number"
           value={inputValue}
           onChange={(e) => {
             setInputValue(parseFloat(e.target.value));
           }}
         />
+      <div className="input">
+        
         <button
           onClick={() => {
             props.addValue(inputValue);
@@ -31,6 +31,17 @@ function App(props: any) {
         >
           Minus
         </button>
+        <button
+        onClick={()=>{
+          props.multiplyValue(inputValue);
+          setInputValue(0);
+        }}>Multiply</button>
+        <button
+        onClick={()=>{
+          props.divideValue(inputValue);
+          setInputValue(0);
+        }}
+        >Divide</button>
       </div>
       <div> Count: {props.count}</div>
       <button onClick={props.increment}>Increment</button>
@@ -67,6 +78,16 @@ function mapDispatchToProps(dispatch: any) {
         type: "MINUS_VALUE",
         payload: value,
       }),
+      divideValue: (value:number)=>
+      dispatch({
+        type: 'DIVIDE_VALUE',
+        payload:value,
+      }),
+      multiplyValue: (value:number)=>
+      dispatch({
+        type: 'MULTIPLY_VALUE',
+        payload:value,
+      })
   };
 }
 
