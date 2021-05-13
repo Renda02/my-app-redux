@@ -94,8 +94,8 @@ function mapDispatchToProps(dispatch: any) {
 export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 // TODOS
-// Add a new button to divide the state by a value
-// Add a new button to multipy the state by a value
+// Add a new button to divide the state by a value-
+// Add a new button to multipy the state by a value-
 
 // Adding a new state in the store
 // Add a new redux state that is an array

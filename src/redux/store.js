@@ -2,7 +2,23 @@ import { createStore } from 'redux';
 
 const initialState = {
     count: 0,
+    items: [],
 };
+
+function updateObjectInArray(array, action) {
+   return array.map((item, index) => {
+     if (index !== action.index) {
+       // This isn't the item we care about - keep it as-is
+       return item
+     }
+ 
+     // Otherwise, this is the one we want - return an updated value
+     return {
+       ...item,
+   inBasket:true
+     }
+   })
+ }
 
 function reducer (state = initialState, action)  {
     switch (action.type) {
@@ -36,6 +52,27 @@ function reducer (state = initialState, action)  {
                      ...state, 
                      count: state.count * action.payload,
                   };
+                  case "ADD_TO_LIST":
+                     return {
+                       ...state,
+                       items: [
+                         ...state.items,
+                         {            
+                           value: action.payload,
+                           inBasket: false
+                         }
+                       ]
+                     };
+                     case "ADD_TO_BASKET":
+                        return {
+                          ...state,
+                          items: updateObjectInArray(state.items, action)
+                        };
+                     case "CLEAR_ITEMS": {
+                        return {
+                          items: []
+                        };
+                      }
           
          default: return state;
     }
