@@ -57,10 +57,7 @@ function reducer (state = initialState, action)  {
                        ...state,
                        items: [
                          ...state.items,
-                         {            
-                           value: action.payload,
-                           inBasket: false
-                         }
+                      action.payload
                        ]
                      };
                      case "ADD_TO_BASKET":
@@ -70,6 +67,7 @@ function reducer (state = initialState, action)  {
                         };
                      case "CLEAR_ITEMS": {
                         return {
+                          ...state,
                           items: []
                         };
                       }
