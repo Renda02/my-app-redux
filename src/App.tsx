@@ -25,13 +25,12 @@ function App(props: any) {
           Add-List
         </button>
         <button
-        onClick={
-        (()=>{
-          props.removeList();
-
-        })
-        }
-        >Clear</button>
+          onClick={() => {
+            props.removeList();
+          }}
+        >
+          Clear
+        </button>
         <div>
           {props.items.map((item: string) => {
             return <p>{item}</p>;
@@ -92,6 +91,7 @@ function mapStateToProps(state: any) {
   return {
     count: state.count,
     items: state.items,
+    todos: state.todos,
   };
 }
 
@@ -127,16 +127,14 @@ function mapDispatchToProps(dispatch: any) {
         payload: value,
       }),
     addList: (value: string) =>
-      dispatch({ type: "ADD_TO_LIST", payload: value }),
-      removeList:()=>{
-        dispatch({
-          type:'CLEAR_ITEMS',
-
-        })
-
-      }
+      dispatch({ type: "ADD_TO_LIST",
+       payload: value }),
+    removeList: () => {
+      dispatch({
+        type: "CLEAR_ITEMS",
+      });
+    },
   };
-
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
