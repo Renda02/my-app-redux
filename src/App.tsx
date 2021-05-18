@@ -98,6 +98,12 @@ function mapStateToProps(state: any) {
 // how ot get data from the redux into our props
 function mapDispatchToProps(dispatch: any) {
   return {
+    addTodos: (value: object) =>
+      dispatch({
+        type: "ADD_TODOS",
+        payload: value,
+      }),
+
     increment: () =>
       dispatch({
         type: "INCREMENT",
@@ -127,8 +133,7 @@ function mapDispatchToProps(dispatch: any) {
         payload: value,
       }),
     addList: (value: string) =>
-      dispatch({ type: "ADD_TO_LIST",
-       payload: value }),
+      dispatch({ type: "ADD_TO_LIST", payload: value }),
     removeList: () => {
       dispatch({
         type: "CLEAR_ITEMS",
