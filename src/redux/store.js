@@ -7,18 +7,18 @@ const initialState = {
     {
       id: 1,
       text: "do homework",
-      isCompleted: "false",
+      isCompleted: false,
     },
-
     {
       id: 2,
       text: "do grocery",
-      isCompleted: "true",
+      isCompleted: true,
     },
     {
       id: 3,
-    text: "go to gym",
-   isCompleted: "false" },
+      text: "go to gym",
+      isCompleted: false,
+    },
   ],
 };
 
@@ -74,12 +74,32 @@ function reducer(state = initialState, action) {
         ...state,
         items: [...state.items, action.payload],
       };
-case 'ADD_TODOS':
-   return{
-...state,
-todos:[...state.todos,action.payload ]
-   };
+    case "ADD_TODOS":
+      return {
+        ...state,
+        todos: [...state.todos, action.payload],
+      };
+    case "COMPLETE_TODO":
+      // find the todo in the list
+      // we need to change the isCompleted to true
 
+      // 1. find the index of the todo we need to change
+      const oldTodoPosition = state.todos.findIndex((element) => (element.id === action.payload.id))
+
+      // 2. build the new list of todos
+      const newTodoList = state.todos;
+
+      // 3. Update the todo at that index with the value true
+      newTodoList[oldTodoPosition] = {
+        ...newTodoList[oldTodoPosition],
+        isCompleted: !newTodoList[oldTodoPosition].isCompleted // switch the value of is completed
+      }
+
+      // 4. Return the new state
+      return {
+        ...state,
+        todos: [...newTodoList]
+      };
 
     case "ADD_TO_BASKET":
       return {

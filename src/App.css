@@ -36,3 +36,14 @@
     transform: rotate(360deg);
   }
 }
+
+
+.input{
+  margin-top:2em ;
+  background-color: blanchedalmond;
+}
+
+.text{
+  margin-top: 3em;
+  background-color: #61dafb;
+}

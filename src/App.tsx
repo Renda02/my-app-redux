@@ -1,14 +1,23 @@
 import React, { useState } from "react";
 import "./App.css";
 import { connect } from "react-redux";
+import { v4 as uuidv4 } from 'uuid';
+
+// a type, not a value --> describes the shape of data
+interface Todo {
+  id: string;
+  text: string;
+  isCompleted: boolean;
+}
 
 function App(props: any) {
   const [inputValue, setInputValue] = useState(0);
   const [input, setInput] = useState("");
+  const [todoList, setTodoList] = useState(props.todos); //
 
   return (
     <div className="App">
-      <div>
+      <div className="text">
         <input
           type="text"
           value={input}
@@ -18,12 +27,17 @@ function App(props: any) {
         />
         <button
           onClick={() => {
-            props.addList(input);
+            props.addTodos({
+              id: uuidv4(),
+              text: input,
+              isCompleted:false,
+            });
             setInput("");
           }}
         >
           Add-List
         </button>
+
         <button
           onClick={() => {
             props.removeList();
@@ -31,6 +45,23 @@ function App(props: any) {
         >
           Clear
         </button>
+        <div>
+          {props.todos.map((todo: Todo) => {
+            return (
+              <div>
+                <p>{todo.text}</p>
+                <input
+                  type="checkbox"
+                  id={todo.id}
+                  name="scales"
+                  checked={todo.isCompleted}
+                  onChange={() => 
+                  props.completeTodo(todo)}
+                ></input>
+              </div>
+            );
+          })}
+        </div>
         <div>
           {props.items.map((item: string) => {
             return <p>{item}</p>;
@@ -98,12 +129,16 @@ function mapStateToProps(state: any) {
 // how ot get data from the redux into our props
 function mapDispatchToProps(dispatch: any) {
   return {
-    addTodos: (value: object) =>
+    completeTodo: (todo: Todo) =>
+      dispatch({
+        type: "COMPLETE_TODO",
+        payload: todo,
+      }),
+    addTodos: (value: Todo) =>
       dispatch({
         type: "ADD_TODOS",
         payload: value,
       }),
-
     increment: () =>
       dispatch({
         type: "INCREMENT",
