@@ -13,7 +13,7 @@ interface Todo {
 function App(props: any) {
   const [inputValue, setInputValue] = useState(0);
   const [input, setInput] = useState("");
-  const [todoList, setTodoList] = useState(props.todos); //
+ 
 
   return (
     <div className="App">
