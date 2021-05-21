@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import { connect } from "react-redux";
 import { v4 as uuidv4 } from 'uuid';
+import NavBar from "./NavBar";
 
 // a type, not a value --> describes the shape of data
 interface Todo {
@@ -15,7 +16,8 @@ function App(props: any) {
   const [input, setInput] = useState("");
  
 
-  return (
+  return (<>
+  <NavBar />
     <div className="App">
       <div className="text">
         <input
@@ -114,6 +116,7 @@ function App(props: any) {
       <button onClick={props.increment}>Increment</button>
       <button onClick={props.decrement}>Decrement</button>
     </div>
+    </>
   );
 }
 
